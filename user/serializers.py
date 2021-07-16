@@ -19,6 +19,9 @@ class UserCreateSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
+    first_name = serializers.CharField(required=False)
+    last_name = serializers.CharField(required=False)
+    department = serializers.CharField(required=False)
 
     class Meta:
         model = get_user_model()
@@ -66,3 +69,12 @@ class EmailVerificationSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         fields = ('token', )
+
+
+class ChangePasswordSerializer(serializers.Serializer):
+    password1 = serializers.CharField(max_length=255)
+    password2 = serializers.CharField(max_length=255)
+
+
+class UpdatePasswordSerializer(serializers.Serializer):
+    email = serializers.CharField(max_length=255)

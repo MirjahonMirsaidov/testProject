@@ -28,3 +28,14 @@ def send_email_verification(user):
             'email_subject': 'Verify your email'}
 
     send_email(data)
+
+
+def send_change_password(user):
+    token = RefreshToken.for_user(user).access_token
+    absurl = 'http://127.0.0.1:8000/user/change-password' + "?token=" + str(token)
+    email_body = 'Hi! ' + \
+                 'Use the link below to change your password \n' + absurl
+    data = {'email_body': email_body, 'to_email': user.email,
+            'email_subject': 'Change password'}
+
+    send_email(data)
