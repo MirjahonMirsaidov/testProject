@@ -1,5 +1,15 @@
-from django.shortcuts import render
+import django_filters
+from rest_framework import generics, filters
+
+from .filters import ItemFilter
+from .models import Items
+from .serializers import ItemsSerializer
 
 
-def index(request):
-    return render(request, 'index.html', {})
+class ItemsListView(generics.ListAPIView):
+    serializer_class = ItemsSerializer
+    queryset = Items.objects.all()
+    filter_backends = [django_filters.rest_framework.DjangoFilterBackend, filters.SearchFilter]
+    search_fields = ['name', ]
+    filterset_class = ItemFilter
+

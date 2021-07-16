@@ -41,18 +41,11 @@ class SamplesAdmin(admin.ModelAdmin):
 
 @admin.register(Items)
 class ItemsAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'rank', 'quantity', 'verified', 'categories')
+    list_display = ('id', 'name', 'rank', 'quantity', 'verified', 'category')
 
-    def categories(self, obj):
+    def category(self, obj):
         # displaying all categories of item
-        categories = []
-        for cat in Category.objects.filter(item=obj):
-            if cat.parent:
-                parent = Category.objects.get(id=cat.parent_id)
-                categories.append(parent.name + '.' + cat.name)
-            else:
-                categories.append(cat.name)
-        return categories
+        return [cat.name for cat in obj.categories.all()]
 
     def get_urls(self):
         # adding upload tsv button-link to the admin
