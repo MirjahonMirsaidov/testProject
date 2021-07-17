@@ -4,7 +4,6 @@ from rest_framework import generics, filters
 from .filters import ItemFilter
 from .models import Items
 from .serializers import ItemsSerializer
-from .permissions import CanDoSearch
 
 
 class ItemsListView(generics.ListAPIView):
