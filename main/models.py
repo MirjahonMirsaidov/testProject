@@ -20,6 +20,11 @@ class Items(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        permissions = [
+            ('can_seach', 'can do search and filtering')
+        ]
+
 
 class Samples(models.Model):
     id = models.CharField(max_length=255, primary_key=True)
